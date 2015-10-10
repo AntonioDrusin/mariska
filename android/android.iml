@@ -86,6 +86,7 @@
     <orderEntry type="library" exported="" name="gdx-controllers-android-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="gdx-controllers-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="gdx-box2d-1.7.0" level="project" />
+    <orderEntry type="library" exported="" name="ashley-1.6.0" level="project" />
     <orderEntry type="library" exported="" name="gdx-backend-android-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="box2dlights-1.4" level="project" />
     <orderEntry type="library" exported="" name="gdx-1.7.0" level="project" />

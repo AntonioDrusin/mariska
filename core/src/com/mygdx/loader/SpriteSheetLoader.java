@@ -27,7 +27,7 @@ public class SpriteSheetLoader {
 
     public void Load() {
         Collection<SpriteInfo> sprites = spriteData.Load();
-        Texture sheet = new Texture(Gdx.files.internal("spritesheet.png"));
+        Texture sheet = new Texture(Gdx.files.internal(pictureFileName));
 
         for( SpriteInfo sprite : sprites) {
             ArrayList<TextureRegion> regionList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class SpriteSheetLoader {
             }
             TextureRegion[] regionArray = new TextureRegion[regionList.size()];
             regionArray = regionList.toArray(regionArray);
-            Animation animation = new Animation(frameTime, regionArray);
+            Animation animation = new Animation(frameTime,  regionArray );
             animations.put(sprite.name, animation);
         }
 
