@@ -10,25 +10,25 @@ import com.mygdx.game.components.StateComponent;
 import com.mygdx.game.components.TextureComponent;
 
 public class AnimationSystem extends IteratingSystem{
-    private ComponentMapper<TextureComponent> tm;
-    private ComponentMapper<AnimationComponent> am;
-    private ComponentMapper<StateComponent> sm;
+    private ComponentMapper<TextureComponent> textureMapper;
+    private ComponentMapper<AnimationComponent> animationMapper;
+    private ComponentMapper<StateComponent> stateMapper;
 
     public AnimationSystem() {
         super(Family.all(TextureComponent.class,
                 AnimationComponent.class,
                 StateComponent.class).get());
 
-        tm = ComponentMapper.getFor(TextureComponent.class);
-        am = ComponentMapper.getFor(AnimationComponent.class);
-        sm = ComponentMapper.getFor(StateComponent.class);
+        textureMapper = ComponentMapper.getFor(TextureComponent.class);
+        animationMapper = ComponentMapper.getFor(AnimationComponent.class);
+        stateMapper = ComponentMapper.getFor(StateComponent.class);
     }
 
     @Override
     public void processEntity(Entity entity, float deltaTime) {
-        TextureComponent texture = tm.get(entity);
-        AnimationComponent animationComponent = am.get(entity);
-        StateComponent state = sm.get(entity);
+        TextureComponent texture = textureMapper.get(entity);
+        AnimationComponent animationComponent = animationMapper.get(entity);
+        StateComponent state = stateMapper.get(entity);
 
         Animation animation = animationComponent.get(state.get());
         if ( animation != null ) {
