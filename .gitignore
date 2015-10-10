@@ -24,6 +24,7 @@ android/libs/x86/
 android/gen/
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/
 *.ipr
 *.iws
 out/
