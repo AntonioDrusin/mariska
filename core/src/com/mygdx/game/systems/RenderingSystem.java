@@ -6,7 +6,9 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
@@ -15,7 +17,7 @@ import com.mygdx.game.systems.support.UIRenderingSupport;
 import java.util.Comparator;
 
 
-public class RenderingSystem  extends IteratingSystem {
+public class RenderingSystem extends IteratingSystem {
 
     static final float FRUSTUM_WIDTH = 640;
     static final float FRUSTUM_HEIGHT = 480;
@@ -28,6 +30,7 @@ public class RenderingSystem  extends IteratingSystem {
     private UIRenderingSupport uiRenderer;
     private TiledMap map;
     private OrthographicCamera camera;
+    private MapRenderer mapRenderer;
 
     public RenderingSystem(SpriteBatch batch, UIRenderingSupport uiRenderer) {
         super(Family.all(TransformComponent.class, TextureComponent.class).get());
@@ -35,7 +38,7 @@ public class RenderingSystem  extends IteratingSystem {
         this.uiRenderer = uiRenderer;
 
         camera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-        camera.position.set(FRUSTUM_WIDTH/2, FRUSTUM_HEIGHT/2,0);
+        camera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 
         textureMapper = ComponentMapper.getFor(TextureComponent.class);
         transformMapper = ComponentMapper.getFor(TransformComponent.class);
@@ -45,14 +48,16 @@ public class RenderingSystem  extends IteratingSystem {
         comparator = new Comparator<Entity>() {
             @Override
             public int compare(Entity entityA, Entity entityB) {
-                return (int)Math.signum(transformMapper.get(entityB).pos.z -
+                return (int) Math.signum(transformMapper.get(entityB).pos.z -
                         transformMapper.get(entityA).pos.z);
             }
         };
     }
-    
-    public void setMap( TiledMap map) {
+
+    public void setMap(TiledMap map) {
         this.map = map;
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
+        mapRenderer.setView(camera);
     }
 
     @Override
@@ -60,8 +65,16 @@ public class RenderingSystem  extends IteratingSystem {
         super.update(deltaTime);
         camera.update();
 
-        renderQueue.sort(comparator);
+        mapRenderer.render();
+        renderSprites();
 
+
+        uiRenderer.update(deltaTime);
+        renderQueue.clear();
+    }
+
+    private void renderSprites() {
+        renderQueue.sort(comparator);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (Entity entity : renderQueue) {
@@ -82,12 +95,9 @@ public class RenderingSystem  extends IteratingSystem {
                     t.pos.x - originX, t.pos.y - originY,
                     originX, originY,
                     width, height,
-                    1f,1f,0f); // scale x, scale y, rotation
+                    1f, 1f, 0f); // scale x, scale y, rotation
         }
         batch.end();
-
-        uiRenderer.update(deltaTime);
-        renderQueue.clear();
     }
 
     @Override

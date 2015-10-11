@@ -37,6 +37,7 @@ public class UIRenderingSupport  {
         camera.update();
         stage.act(deltaTime);
         stage.draw();
+        batch.setColor(1f,1f,1f,1f);
     }
 
     public Stage getStage() {
