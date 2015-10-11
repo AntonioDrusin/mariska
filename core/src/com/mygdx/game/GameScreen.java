@@ -9,6 +9,7 @@ import com.mygdx.loader.AssetLoader;
 
 
 public class GameScreen extends ScreenAdapter {
+    private final RenderingSystem gameRenderingSystem;
     SpriteBatch batch;
     private PooledEngine engine;
     private World world;
@@ -26,7 +27,7 @@ public class GameScreen extends ScreenAdapter {
         UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
 
         engine.addSystem(new TouchpadSystem(loader, uiRenderingSupport));
-        RenderingSystem gameRenderingSystem = new RenderingSystem(batch, uiRenderingSupport);
+        gameRenderingSystem = new RenderingSystem(batch, uiRenderingSupport);
 
         gameRenderingSystem.setMap(world.getMap());
         engine.addSystem(gameRenderingSystem);
@@ -42,6 +43,11 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render (float delta) {
         update(delta);
+    }
+
+    @Override
+    public void resize (int width, int height) {
+        gameRenderingSystem.resize(width, height);
     }
 }
 

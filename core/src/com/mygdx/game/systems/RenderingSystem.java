@@ -58,13 +58,23 @@ public class RenderingSystem extends IteratingSystem {
         this.map = map;
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
         mapRenderer.setView(camera);
+
+    }
+
+    public void resize(int width, int height) {
+        uiRenderer.resize(width, height);
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+
+        camera.position.add(1f,1f,0f);
+
         camera.update();
 
+        mapRenderer.setView(camera);
         mapRenderer.render();
         renderSprites();
 

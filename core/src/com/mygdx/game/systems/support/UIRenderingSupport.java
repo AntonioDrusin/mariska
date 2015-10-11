@@ -7,8 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
-public class UIRenderingSupport  {
-
+public class UIRenderingSupport {
+    static final float FRUSTUM_WIDTH = 640f;
+    static final float FRUSTUM_HEIGHT = 480f;
     private Stage stage;
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -22,22 +23,26 @@ public class UIRenderingSupport  {
     }
 
     private void createCamera() {
-        float aspectRatio = (float) Gdx.graphics.getWidth() / (float) Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 10f*aspectRatio, 10f);
+        camera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+        viewport = new FitViewport(FRUSTUM_WIDTH, FRUSTUM_HEIGHT, camera);
     }
 
     private void createStage() {
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(viewport, batch);
         Gdx.input.setInputProcessor(stage);
     }
 
-    public void update (float deltaTime) {
+
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
+    }
+
+    public void update(float deltaTime) {
         camera.update();
         stage.act(deltaTime);
         stage.draw();
-        batch.setColor(1f,1f,1f,1f);
+        batch.setColor(1f, 1f, 1f, 1f);
     }
 
     public Stage getStage() {
