@@ -46,8 +46,8 @@ public class RenderingSystem  extends IteratingSystem {
 
         renderQueue.sort(comparator);
 
-        Gdx.gl.glClearColor(130f/255f, 180f/255f, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+  //      Gdx.gl.glClearColor(130f/255f, 180f/255f, 1, 1);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
 

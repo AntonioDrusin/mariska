@@ -17,6 +17,7 @@ public class AssetLoader {
     private String audioFolder;
     private HashMap<String, Animation> animations;
     private HashMap<String, Sound> sounds;
+    private HashMap<String, TextureRegion> textures;
 
     public AssetLoader(String jsonFileName, String pictureFileName, String audioFolder) {
         this.pictureFileName = pictureFileName;
@@ -24,12 +25,14 @@ public class AssetLoader {
         spriteData = new SpriteSheetData(jsonFileName);
         animations = new HashMap<>();
         sounds = new HashMap<>();
+        textures = new HashMap<>();
     }
 
     public Animation getAnimation(String name) {
         return animations.get(name);
     }
     public Sound getSound(String name) {return sounds.get(name);}
+    public TextureRegion getTextureRegion(String name) {return textures.get(name);}
 
     public void load() {
         loadAnimations();
@@ -56,10 +59,15 @@ public class AssetLoader {
                 TextureRegion newRegion = new TextureRegion(sheet, celInfo.sourceX, celInfo.sourceY, celInfo.width, celInfo.height);
                 regionList.add(newRegion);
             }
+
             TextureRegion[] regionArray = new TextureRegion[regionList.size()];
             regionArray = regionList.toArray(regionArray);
             Animation animation = new Animation(frameTime,  regionArray );
             animations.put(sprite.name, animation);
+
+            if ( regionList.size()==1) {
+                textures.put(sprite.name, regionList.get(0));
+            }
         }
     }
 }

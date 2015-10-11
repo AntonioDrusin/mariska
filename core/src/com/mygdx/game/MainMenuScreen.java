@@ -31,7 +31,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
     private Animation robot;
     private Animation onion;
-    private Animation startButtonAnimation;
 
     Vector3 touchPoint;
     private MariskaGame game;
@@ -50,7 +49,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
         robot=loader.getAnimation("Robot");
         onion=loader.getAnimation("Onion");
-        startButtonAnimation=loader.getAnimation("Button");
+        textureStartButton=loader.getTextureRegion("Button");
         click=loader.getSound("click");
 
         guiCam = new OrthographicCamera(640, 480);
@@ -94,11 +93,10 @@ public class MainMenuScreen extends ScreenAdapter {
             position = position -160;
         }
 
-        campos = campos+1  * delta;
+        campos = campos+1*delta;
 
         texture = robot.getKeyFrame(time, true );
         textureOnion = onion.getKeyFrame(time, true);
-        textureStartButton = startButtonAnimation.getKeyFrame(time, true);
     }
 
     public void draw () {
@@ -136,9 +134,7 @@ public class MainMenuScreen extends ScreenAdapter {
         shapeRenderer.circle(550,400,36);
 
         DrawWatermelon();
-
         shapeRenderer.end();
-
 
         batch.setProjectionMatrix(guiCam.combined);
         batch.begin();
