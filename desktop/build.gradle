@@ -19,7 +19,7 @@ task buildSprites(type:Exec){
     executable 'aseprite'
     def sheetFile =new File("./build/assets/spritesheet.png")
     def dataFile =new File("./build/assets/spritesheet.json")
-    def argumentList = [ '-b', '--sheet', file(sheetFile), '--data', file(dataFile) ]
+    def argumentList = [ '-b','--sheet-pack', '--sheet', file(sheetFile), '--data', file(dataFile) ]
     args argumentList + files {project.spriteDir.listFiles()}
 }
 
