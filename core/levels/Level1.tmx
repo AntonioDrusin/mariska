@@ -5,13 +5,35 @@
  </tileset>
  <layer name="Background" width="100" height="100">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2aW27DMBAD5TP0/nct8mHEVRXFkna15JoDBOgzITl2gyYupZSjiGiO8vYgH7FcXZQiH1Ec5b+L0vhc+NPy0Pu68OHTOXH9vvDlm4P6Z4U9RxnzUP+esGHGQes+xBoWHlr3J8bx2s7acWZmnx9WH0v8JXobeXmDtAVSlt1EnxM9UHN5wdKXJecsyOdED8bMPVg9XMnQ4UWGDjWMfTJ6uMLUjyXnKuhO0PN5gdobMdNOUPqjHh8RRG8R/fiIRL8WJ/4T4UQuvrPLi1zcx9uJnjPGqd9rs7iVIhereDgR81y3/CnzHs7fFWvUm67c5GMd/b3iRFtjoXMAC/nAQf9fYFHvLydxfNpdTmLobS4ne7mztZzsYWRnOfFnZl958WFlVzmxZ3VPObHFYks5scNqR73GYoP1fnIyj9d2cjKH92byMsaOrfS8co/dG8lLn9276L33PhGbHNXH8vImykfLydO9RG7QeuzW37KneELoOfrafnReTxC6jW6c1QlSLznB6zOaJ5MTxC4zmRB7zIDa4YlO0PM/zQlD7qdcU8GSeTYnS7+TJ2RlccKS88TiWhdk0PPVZL72CDVXD4s9EXsjHyc9rK89QgEpywiWuVGcoOSYgTV3D+ZOzMdSiwx92PNfydAlwzH1IkuPFxl6ZOhwwn5ssedvwdyHOXsPxl4Zz40Txm5seUdhcsKUdQWWngwZrUB3gp7PA+TOqLm8QeyNmGkXaOcIWp4IkDZAyRENghOEDEhE7iEXbaJ2kYvP7N5G58Z3duwjD/fx2uqobuI+VpvJgR2r18lrf3tGdpWHffR2locY6s3lIJ6rA7nA4HTyC0jquXJAnAAA
+   H4sIAAAAAAAAA+2cyW3DQBAEyQQUjOEIBCj/lGQDJEARPHapHU7PbD3qI8Dr7i4eL2kYhmH84wGujBMDPtyZXTzwIeFhuT8+fF2Ufg62HvY2x4W/A3zc66BmY55Xdh6+OcO7R3RaeNg6z7tXRKy2a+04M1ffD3jJtQ1eNLeoyfKc8M7curuKi1qsfDwNzz5z4b2poo87iX5PZPGRyUN0H9k8lPoo8RXVqSIe713w8fH6Ikuv14dV/38Xv6vPfia8OyuzviZbeJld4MPfx9LFno8tjs7syWFLH6+Ts/Z2xYeNjzPwcc2HlZtSH+v/jY9Pjp77Z++CkvcE98exj9ozrPfCh9ZePfnw3uvKMxDabMrWAAAAAAAAAAAAAAAAAFBC1u97RCbj96EygBct7vy9BSh3svbjnaln1g64X/zZ2n/rWYane53UuMOLvQ9+Y08LnOhRuy9O7H3gRAuc6IETPa5sixNbHzjR4uquONHy0ervob0PVSequaz3VOytfJ3csaVaf6UsXrlVnKjk8PahQuROka+lrH2i58/WJcM1lanH3MU7Ax0+u0TuEz3/XifvDD1mz9Yr470RuVu0vJmdRMraQ88IGXtxop6vt86quXrsrZjpzu5K/dXy9L6BSg5vFJwoZFDCcw9caO2CC51tuDc0nODBf6txhXfPSLTaDAf+TthfwwkeNLzgQcMJDvxZOsCFBrOTN4T54vRAnAAA
   </data>
  </layer>
  <objectgroup name="Collision" width="100" height="100">
   <object x="1216" y="992" width="512" height="32"/>
   <object x="1696" y="960" width="32" height="32"/>
   <object x="1216" y="960" width="32" height="32"/>
+  <object x="928" y="576" width="64" height="32"/>
+  <object x="1216" y="576" width="64" height="32"/>
+  <object x="1376" y="448" width="96" height="32"/>
+  <object x="672" y="416" width="64" height="544"/>
+  <object x="768" y="704" width="64" height="256"/>
+  <object x="768" y="608" height="128"/>
+  <object x="736" y="608" width="32" height="352"/>
+  <object x="832" y="832" width="96" height="64"/>
+  <object x="928" y="864" width="416" height="32"/>
+  <object x="1216" y="896" width="32" height="64"/>
+  <object x="1536" y="672" width="64" height="96"/>
+  <object x="1600" y="736" width="160" height="32"/>
+  <object x="1536" y="768" width="32" height="128"/>
+  <object x="1440" y="864" width="96" height="32"/>
+  <object x="1728" y="768" width="32" height="128"/>
+  <object x="1856" y="832" width="64" height="32"/>
+  <object x="1792" y="640" width="128" height="32"/>
+  <object x="1984" y="736" width="32" height="224"/>
+  <object x="1728" y="960" width="288" height="32"/>
+  <object x="1440" y="640">
+   <polygon points="0,0 -160,160 0,160"/>
+  </object>
  </objectgroup>
  <objectgroup name="Actors" width="100" height="100">
   <object name="Player" type="Player" x="1312" y="928" width="32" height="32"/>
