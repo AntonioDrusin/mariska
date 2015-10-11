@@ -25,6 +25,7 @@ public class World {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         StateComponent state = engine.createComponent(StateComponent.class);
+        ControllerComponent controller = engine.createComponent(ControllerComponent.class);
 
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"),false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"),true);
@@ -37,6 +38,7 @@ public class World {
         entity.add(texture);
         entity.add(transform);
         entity.add(state);
+        entity.add(controller);
 
         engine.addEntity(entity);
     }

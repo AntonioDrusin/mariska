@@ -1,6 +1,7 @@
 package com.mygdx.game.systems;
 
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -15,6 +16,8 @@ import com.mygdx.loader.AssetLoader;
 
 public class TouchpadSystem extends IteratingSystem {
 
+    private final ComponentMapper<ControllerComponent> controllerMapper;
+
     private Stage stage;
     private Skin touchpadSkin;
     private Touchpad.TouchpadStyle touchpadStyle;
@@ -22,10 +25,17 @@ public class TouchpadSystem extends IteratingSystem {
     private Touchpad touchpad;
     private AssetLoader loader;
 
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
+
     public TouchpadSystem(AssetLoader loader, IUIStage stage) {
         super(Family.all(ControllerComponent.class).get());
         this.loader = loader;
         this.stage = stage.getStage();
+
+        controllerMapper = ComponentMapper.getFor(ControllerComponent.class);
 
         createTouchpad();
     }
@@ -54,8 +64,22 @@ public class TouchpadSystem extends IteratingSystem {
     }
 
     @Override
-    protected void processEntity(Entity entity, float deltaTime) {
+    public void update (float deltaTime) {
+        up = touchpad.getKnobPercentY()>.30f;
+        down = touchpad.getKnobPercentY()<-.30f;
+        right  = touchpad.getKnobPercentX()>.30f;
+        left  = touchpad.getKnobPercentX()<-.30f;
 
+        super.update(deltaTime);
+    }
+
+    @Override
+    protected void processEntity(Entity entity, float deltaTime) {
+        ControllerComponent controller =  controllerMapper.get(entity);
+        controller.up = up;
+        controller.down = down;
+        controller.left = left;
+        controller.right = right;
     }
 
 }

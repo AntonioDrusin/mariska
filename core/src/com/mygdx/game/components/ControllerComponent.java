@@ -10,4 +10,5 @@ public class ControllerComponent implements Component {
     public boolean left;
     public boolean right;
     public boolean up;
+    public boolean down;
 }
