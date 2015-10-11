@@ -11,4 +11,5 @@ public class ControllerComponent implements Component {
     public boolean right;
     public boolean up;
     public boolean down;
+    public float jumpTime;
 }

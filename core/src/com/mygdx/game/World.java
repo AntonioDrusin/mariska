@@ -69,6 +69,7 @@ public class World {
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         MovementComponent movement = engine.createComponent(MovementComponent.class);
 
+        movement.maxVelocity.set(180.3f,200);
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"), false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"), true);
 

@@ -66,7 +66,7 @@ public class TouchpadSystem extends IteratingSystem {
 
     @Override
     public void update (float deltaTime) {
-        up = touchpad.getKnobPercentY()>.30f;
+        up = touchpad.getKnobPercentY()>.50f;
         down = touchpad.getKnobPercentY()<-.30f;
         right  = touchpad.getKnobPercentX()>.30f;
         left  = touchpad.getKnobPercentX()<-.30f;

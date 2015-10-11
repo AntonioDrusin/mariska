@@ -21,17 +21,46 @@ public class ControllerSystem extends IteratingSystem {
         MovementComponent movement = movementMapper.get(entity);
         ControllerComponent controller = controllerMapper.get(entity);
 
-        float velocity = 50;
-        float x = velocity;
+        float accelerationX = 500;
         float dx=0f;
 
         if ( controller.left )
-            dx = -x;
-        if ( controller.right )
-            dx = x;
-        if ( controller.up)
-            movement.velocity.y = 60f;
+        {
+            dx = -accelerationX;
+            if(movement.velocity.x > 0){
+                dx = -700;
+            }
+        }
+        else if ( controller.right ) {
+            dx = accelerationX;
+            if (movement.velocity.x < 0) {
+                dx = 700;
+            }
+        }
+        else{
+            float sign = Math.signum(movement.velocity.x);
+            dx = sign * -550;
+        }
 
-        movement.velocity.x=dx;
+        if ( movement.jumping )
+        {
+            controller.jumpTime += deltaTime;
+        }
+
+        if ( controller.up ) {
+            if ( !movement.jumping ) {
+                movement.velocity.y = 200;
+                movement.jumping = true;
+                controller.jumpTime = 0;
+            }
+            else {
+                if(controller.jumpTime < 0.6f){
+                    movement.velocity.y = 200;
+                }
+
+            }
+        }
+
+        movement.accel.x=dx;
     }
 }

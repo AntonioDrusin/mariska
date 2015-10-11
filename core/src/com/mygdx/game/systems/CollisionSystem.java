@@ -35,13 +35,19 @@ public class CollisionSystem extends EntitySystem {
                 BoundsComponent back = boundsMapper.get(backgroundEntity);
 
                 if (fore.bounds.overlaps(back.bounds)) {
-                    float lowerY =  back.bounds.y + back.bounds.height;
-                    if ( fore.bounds.y < lowerY) {
+                    MovementComponent movement = movementMapper.get(foregroundEntity);
+                    if ( movement.velocity.y < 0) {
+                        float lowerY =  back.bounds.y + back.bounds.height;
                         TransformComponent foreLocation = transformMapper.get(foregroundEntity);
                         foreLocation.pos.y = lowerY + fore.bounds.height/2;
-                        MovementComponent movement = movementMapper.get(foregroundEntity);
                         movement.velocity.y=0f;
+                        movement.jumping = false;
                     }
+
+                    if ( movement.velocity.x != 0) {
+                  //      movement.velocity.x=0f;
+                    }
+
                 }
 
             }

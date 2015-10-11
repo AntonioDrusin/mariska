@@ -5,16 +5,13 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.components.*;
 
-/**
- * Created by antonio on 10/11/15.
- */
 public class GravitySystem extends IteratingSystem {
     private Vector2 gravity;
     private ComponentMapper<MovementComponent> mm;
 
     public GravitySystem() {
         super(Family.all(GravityComponent.class, MovementComponent.class).get());
-        gravity = new Vector2(0f,-59.81f);
+        gravity = new Vector2(0f,-400.81f);
 
         mm = ComponentMapper.getFor(MovementComponent.class);
     }

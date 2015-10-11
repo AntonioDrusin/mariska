@@ -5,9 +5,6 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.components.*;
 
-/**
- * Created by antonio on 10/11/15.
- */
 public class MovementSystem extends IteratingSystem {
     private Vector2 tmp = new Vector2();
 
@@ -29,7 +26,18 @@ public class MovementSystem extends IteratingSystem {
         tmp.set(mov.accel).scl(deltaTime);
         mov.velocity.add(tmp);
 
+        if (mov.velocity.x > mov.maxVelocity.x) {
+            mov.velocity.x = mov.maxVelocity.x;
+        }
+
+
+        if (mov.velocity.x < -mov.maxVelocity.x) {
+            mov.velocity.x = -mov.maxVelocity.x;
+        }
+
+
         tmp.set(mov.velocity).scl(deltaTime);
         pos.pos.add(tmp.x, tmp.y, 0.0f);
+
     }
 }
