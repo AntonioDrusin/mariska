@@ -25,7 +25,7 @@ public class SpriteSheetLoader {
         return animations.get(name);
     }
 
-    public void Load() {
+    public void load() {
         Collection<SpriteInfo> sprites = spriteData.Load();
         Texture sheet = new Texture(Gdx.files.internal(pictureFileName));
 

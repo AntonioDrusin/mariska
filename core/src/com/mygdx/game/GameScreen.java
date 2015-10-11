@@ -12,10 +12,8 @@ public class GameScreen extends ScreenAdapter {
     private PooledEngine engine;
     private World world;
 
-    public void GameScreen() {
-        SpriteSheetLoader loader = new SpriteSheetLoader("spritesheet.json","spritesheet.png");
-        loader.Load();
-        batch = new SpriteBatch();
+    public void GameScreen(SpriteBatch batch,  SpriteSheetLoader loader) {
+        this.batch = batch;
 
         engine = new PooledEngine();
         world = new World(engine,loader);
