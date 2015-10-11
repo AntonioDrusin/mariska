@@ -93,7 +93,7 @@ public class World {
         MapProperties props = map.getLayers().get("Actors").getObjects().get("Player").getProperties();
         float x = props.get("x", float.class);
         float y = props.get("y", float.class);
-        transform.pos.set(x, y, 0f);
+        transform.pos.set(x+16, y+16, 0f);
     }
 
     private void createCamera(Entity target) {

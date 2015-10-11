@@ -38,7 +38,7 @@ public class CollisionSystem extends EntitySystem {
                     float lowerY =  back.bounds.y + back.bounds.height;
                     if ( fore.bounds.y < lowerY) {
                         TransformComponent foreLocation = transformMapper.get(foregroundEntity);
-                        foreLocation.pos.y = lowerY + fore.bounds.height/2; 
+                        foreLocation.pos.y = lowerY + fore.bounds.height/2;
                     }
                 }
             }
