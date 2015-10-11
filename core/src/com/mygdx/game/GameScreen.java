@@ -22,17 +22,19 @@ public class GameScreen extends ScreenAdapter {
 
         engine = new PooledEngine();
         world = new World(engine,game.getLoader());
-        world.create();
 
-        UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
-
-        engine.addSystem(new TouchpadSystem(loader, uiRenderingSupport));
-        gameRenderingSystem = new RenderingSystem(batch, uiRenderingSupport);
-
-        gameRenderingSystem.setMap(world.getMap());
-        engine.addSystem(gameRenderingSystem);
         engine.addSystem(new ControllerSystem());
         engine.addSystem(new AnimationSystem());
+        engine.addSystem(new CameraSystem());
+
+
+        UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
+        engine.addSystem(new TouchpadSystem(loader, uiRenderingSupport));
+        gameRenderingSystem = new RenderingSystem(batch, uiRenderingSupport);
+        engine.addSystem(gameRenderingSystem);
+
+        world.create();
+        gameRenderingSystem.setMap(world.getMap());
 
     }
 

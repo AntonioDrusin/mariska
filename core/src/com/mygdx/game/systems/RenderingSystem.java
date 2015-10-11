@@ -65,15 +65,15 @@ public class RenderingSystem extends IteratingSystem {
         uiRenderer.resize(width, height);
     }
 
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-
-        camera.position.add(1f,1f,0f);
-
         camera.update();
-
         mapRenderer.setView(camera);
         mapRenderer.render();
         renderSprites();

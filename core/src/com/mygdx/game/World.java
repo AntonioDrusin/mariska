@@ -2,9 +2,11 @@ package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.components.*;
+import com.mygdx.game.systems.*;
 import com.mygdx.loader.AssetLoader;
 
 public class World {
@@ -18,9 +20,11 @@ public class World {
     }
 
     public void create() {
-
-        createRobot();
         map = createMap();
+
+        Entity robot = createRobot();
+        createCamera(robot);
+
     }
 
     private TiledMap createMap() {
@@ -32,7 +36,7 @@ public class World {
         return map;
     }
 
-    private void  createRobot() {
+    private Entity createRobot() {
         Entity entity = engine.createEntity();
 
         AnimationComponent animation = engine.createComponent(AnimationComponent.class);
@@ -44,7 +48,10 @@ public class World {
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"),false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"),true);
 
-        transform.pos.set(50f,50f,0f);
+        MapProperties props = map.getLayers().get("Actors").getObjects().get("Player").getProperties();
+        float x= props.get("x", float.class);
+        float y= props.get("y", float.class);
+        transform.pos.set(x,y,0f);
 
         state.set(RobotComponent.STATE_ENTERING);
 
@@ -55,6 +62,20 @@ public class World {
         entity.add(controller);
 
         engine.addEntity(entity);
+        return entity;
+    }
+
+    private void createCamera(Entity target) {
+        Entity entity = engine.createEntity();
+
+        CameraComponent camera = new CameraComponent();
+        camera.camera = engine.getSystem(RenderingSystem.class).getCamera();
+        camera.target = target;
+
+        entity.add(camera);
+
+        engine.addEntity(entity);
     }
 }
+
 
