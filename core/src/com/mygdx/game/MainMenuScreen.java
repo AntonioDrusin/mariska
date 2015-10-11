@@ -5,10 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -118,7 +115,7 @@ public class MainMenuScreen extends ScreenAdapter {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         //draw the background
-        shapeRenderer.setColor(0.9f, 0.9f, 0, 1);
+        shapeRenderer.setColor(1.0f, 0.8f, 0.05f, 1);
         for (int i = 0; i < 7; i++)
         {
             shapeRenderer.rect(position + i * 160, -60, 80, 600);
@@ -132,28 +129,56 @@ public class MainMenuScreen extends ScreenAdapter {
         guiCam.update();
         shapeRenderer.setProjectionMatrix(guiCam.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0,0.3f,0,.75f);
-        shapeRenderer.circle(320,-600,800);
-        shapeRenderer.setColor(0,0.6f,0,.75f);
-        shapeRenderer.circle(320,-600,770);
 
         shapeRenderer.setColor(1f,1.0f,0.3f,.75f);
         shapeRenderer.circle(550,400,60+10*sinus);
         shapeRenderer.setColor(1f,1.0f,0.6f,.75f);
         shapeRenderer.circle(550,400,36);
 
+        DrawWatermelon();
+
         shapeRenderer.end();
 
 
         batch.setProjectionMatrix(guiCam.combined);
         batch.begin();
-        batch.draw(textureStartButton, startButton.x, startButton.y);
+        batch.enableBlending();
+        batch.setColor(1f,1f,1f,1f);
         font.draw(batch, "Start", startButton.x+20, startButton.y+40);
 
-        batch.draw(texture,32f,50f,16f,16f, 250f, 250f, 1f,1f, 15.9f);
+
+        batch.draw(texture,32f,120f,125f,0f, 250f, 250f, 1f,1f, 15.9f + (float)Math.sin(campos * 10)*4);
         batch.draw(textureOnion,300f + sinus * 80,90f,16f,16f, 332, 332, 1f,1f, 0);
+
+        batch.setColor(1f,1f,1f,0.5f);
+        batch.draw(textureStartButton, startButton.x, startButton.y);
         batch.end();
 
+    }
+
+    private void DrawWatermelon() {
+        shapeRenderer.setColor(0,0.3f,0,.75f);
+        shapeRenderer.circle(320,-600,800);
+        shapeRenderer.setColor(0,0.6f,0,.75f);
+        shapeRenderer.circle(320,-600,770);
+        int slices=20;
+        float x = 320;
+        float y = -600;
+        float r = 775;
+        float angle = -campos/1.5f;
+        float angleOffset = ((float)Math.PI * 2)/slices/2;
+        shapeRenderer.setColor(0,0.3f,0,.75f);
+        float circAngle = angle;
+        for ( int i=0; i<slices; i++ ) {
+            float lx = r * (float)Math.sin(circAngle) + x;
+            float ly = r * (float)Math.cos(circAngle) + y;
+            float qx = r * (float)Math.sin(circAngle+angleOffset) + x;
+            float qy = r * (float)Math.cos(circAngle+angleOffset) + y;
+
+            shapeRenderer.triangle(x,y,lx,ly,qx,qy);
+
+            circAngle+=angleOffset*2;
+        }
     }
 
 }

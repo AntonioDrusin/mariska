@@ -29,8 +29,8 @@ public class World {
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         StateComponent state = engine.createComponent(StateComponent.class);
 
-        animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"));
-        animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"));
+        animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"),false);
+        animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"),true);
 
         transform.pos.set(50f,50f,0f);
 

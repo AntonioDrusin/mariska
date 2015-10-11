@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.game.components.AnimationComponent;
 import com.mygdx.game.components.StateComponent;
 import com.mygdx.game.components.TextureComponent;
+import com.mygdx.game.components.support.ComponentAnimation;
 
 public class AnimationSystem extends IteratingSystem{
     private ComponentMapper<TextureComponent> textureMapper;
@@ -30,9 +31,16 @@ public class AnimationSystem extends IteratingSystem{
         AnimationComponent animationComponent = animationMapper.get(entity);
         StateComponent state = stateMapper.get(entity);
 
-        Animation animation = animationComponent.get(state.get());
+        ComponentAnimation compAnimation = animationComponent.get(state.get());
+        Animation animation = compAnimation.animation;
         if ( animation != null ) {
-            texture.region = animation.getKeyFrame(state.time,true);
+            texture.region = animation.getKeyFrame(state.time,!compAnimation.completes);
+            if ( compAnimation.completes ) {
+                if ( animation.getKeyFrameIndex(state.time) + 1 >=  animation.getKeyFrames().length )
+                {
+                    compAnimation.completed = true;
+                }
+            }
         }
 
         state.time += deltaTime;

@@ -14,6 +14,4 @@ public class StateComponent implements Component {
         state = newState;
         time = 0.0f;
     }
-
-
 }
