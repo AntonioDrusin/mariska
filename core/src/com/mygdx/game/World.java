@@ -67,6 +67,7 @@ public class World {
         StateComponent state = engine.createComponent(StateComponent.class);
         ControllerComponent controller = engine.createComponent(ControllerComponent.class);
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        MovementComponent movement = engine.createComponent(MovementComponent.class);
 
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"), false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"), true);
@@ -84,6 +85,8 @@ public class World {
         entity.add(state);
         entity.add(controller);
         entity.add(bounds);
+        entity.add(movement);
+        entity.add(engine.createComponent(GravityComponent.class));
 
         engine.addEntity(entity);
         return entity;

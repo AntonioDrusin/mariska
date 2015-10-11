@@ -5,13 +5,13 @@
  </tileset>
  <layer name="Background" width="100" height="100">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2abY7CMBBD0zPs/e+64kdFCCFtkpmMnfpJSPvFYvu1IEFTSulIIpojvT3IRyy5i5TkI4ojfbtIle+FPzUPrZ8LH36dE/nvhS9XDsq/FfYcqc9DeT9hw4iD2v8Qc1h4qP0/0Y/XdtaOd2b09WH2scQn0dvIyxukLZCyrCb6nGiBmssLlr4sOUdBPidaMGZuweohZ4cOL3boUMLYZ0cPOUz9WHLOgu4EPZ8XqL0RM60EpT/q8RFB9BbRj49I9Htx4psIJ3JxzSovcnEfbyd6zejH+/NOMUb5GejsTcyRb/mXxj2c9xVzlJvO3ORjHj1fcaKtsdA5gIV84JB7kJN4yv3lJI5fu8tJDK3N5WQtd7aWkzX07Cwn/ozsKy8+zOwqJ/bM7ikntlhsKSd2WO2o91hssN5PTsbR5+pYeG8mL32sujZLXq5ZvZG8tFm9iz57bxOxyVF8LS9vonzUnDzdS+QGtceuPZc9xRNCz9739qPzeoLQrXfjXZ0g9ZITvD69eXZygthlJBNijxFQOzzRCXr+pzlhyP2UaypYMo/mZOl38oSsLE5Ycp5YXOuCDHq+kp2vPULN1cJiT8TeyMdJC+trj1BAytKDZW4UJyg5RmDN3YK5E/OxVGOHPuz5c3bossMx9WKXHi926LFDhxP2Y4s9fw3mPszZWzD22vHcOGHsxpa3FyYnTFlnYOnJkNEKdCfo+TxA7oyayxvE3oiZVoF2jqDliQBpA5Qc0SA4QciAROQeclEnahe5+M3qbXRuXLNiH3m4j9dWR3ET97HaTA7smL1OXvvb07OrPKyjtbM8xFBuLgfx5A7kAoPTyT8xRgN3QJwAAA==
+   H4sIAAAAAAAAA+2aW27DMBAD5TP0/nct8mHEVRXFkna15JoDBOgzITl2gyYupZSjiGiO8vYgH7FcXZQiH1Ec5b+L0vhc+NPy0Pu68OHTOXH9vvDlm4P6Z4U9RxnzUP+esGHGQes+xBoWHlr3J8bx2s7acWZmnx9WH0v8JXobeXmDtAVSlt1EnxM9UHN5wdKXJecsyOdED8bMPVg9XMnQ4UWGDjWMfTJ6uMLUjyXnKuhO0PN5gdobMdNOUPqjHh8RRG8R/fiIRL8WJ/4T4UQuvrPLi1zcx9uJnjPGqd9rs7iVIhereDgR81y3/CnzHs7fFWvUm67c5GMd/b3iRFtjoXMAC/nAQf9fYFHvLydxfNpdTmLobS4ne7mztZzsYWRnOfFnZl958WFlVzmxZ3VPObHFYks5scNqR73GYoP1fnIyj9d2cjKH92byMsaOrfS8co/dG8lLn9276L33PhGbHNXH8vImykfLydO9RG7QeuzW37KneELoOfrafnReTxC6jW6c1QlSLznB6zOaJ5MTxC4zmRB7zIDa4YlO0PM/zQlD7qdcU8GSeTYnS7+TJ2RlccKS88TiWhdk0PPVZL72CDVXD4s9EXsjHyc9rK89QgEpywiWuVGcoOSYgTV3D+ZOzMdSiwx92PNfydAlwzH1IkuPFxl6ZOhwwn5ssedvwdyHOXsPxl4Zz40Txm5seUdhcsKUdQWWngwZrUB3gp7PA+TOqLm8QeyNmGkXaOcIWp4IkDZAyRENghOEDEhE7iEXbaJ2kYvP7N5G58Z3duwjD/fx2uqobuI+VpvJgR2r18lrf3tGdpWHffR2locY6s3lIJ6rA7nA4HTyC0jquXJAnAAA
   </data>
  </layer>
  <objectgroup name="Collision" width="100" height="100">
-  <object x="1216" y="992" width="510" height="32"/>
-  <object x="1695" y="918" width="31" height="72"/>
-  <object x="1219" y="922" width="29" height="70"/>
+  <object x="1216" y="992" width="512" height="32"/>
+  <object x="1696" y="960" width="32" height="32"/>
+  <object x="1216" y="960" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Actors" width="100" height="100">
   <object name="Player" type="Player" x="1312" y="928" width="32" height="32"/>

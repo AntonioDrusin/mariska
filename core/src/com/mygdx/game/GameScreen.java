@@ -25,9 +25,11 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(new ControllerSystem());
         engine.addSystem(new AnimationSystem());
-        engine.addSystem(new CameraSystem());
+        engine.addSystem(new GravitySystem());
+        engine.addSystem(new MovementSystem());
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new CollisionSystem());
+        engine.addSystem(new CameraSystem());
 
         UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
         engine.addSystem(new TouchpadSystem(loader, uiRenderingSupport));
