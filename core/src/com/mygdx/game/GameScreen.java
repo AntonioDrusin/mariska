@@ -24,11 +24,10 @@ public class GameScreen extends ScreenAdapter {
         world = new World(engine,game.getLoader());
 
         engine.addSystem(new ControllerSystem());
+        engine.addSystem(new CollisionSystem());
         engine.addSystem(new AnimationSystem());
         engine.addSystem(new GravitySystem());
         engine.addSystem(new BoundsSystem());
-        engine.addSystem(new CollisionSystem());
-
         engine.addSystem(new MovementSystem()); // after collision, so if collision sets velocity to 0 we respect that.
         engine.addSystem(new CameraSystem());
 

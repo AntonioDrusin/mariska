@@ -39,7 +39,11 @@ public class ControllerSystem extends IteratingSystem {
         }
         else{
             float sign = Math.signum(movement.velocity.x);
-            dx = sign * -550;
+            if ( Math.abs(movement.velocity.x) > 30) {
+                dx = sign * -550;
+            }
+            else
+                movement.velocity.x = 0;
         }
 
         if ( movement.jumping )

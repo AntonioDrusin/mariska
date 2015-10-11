@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.maps.MapObject;
@@ -106,6 +107,9 @@ public class World {
         CameraComponent camera = new CameraComponent();
         camera.camera = engine.getSystem(RenderingSystem.class).getCamera();
         camera.target = target;
+        TransformComponent robotLocation = ComponentMapper.getFor(TransformComponent.class).get(target);
+        camera.camera.position.x = robotLocation.pos.x;
+        camera.camera.position.y = robotLocation.pos.y;
 
         entity.add(camera);
 
