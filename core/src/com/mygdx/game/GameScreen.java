@@ -11,12 +11,15 @@ public class GameScreen extends ScreenAdapter {
     SpriteBatch batch;
     private PooledEngine engine;
     private World world;
+    private MariskaGame game;
 
-    public void GameScreen(SpriteBatch batch,  SpriteSheetLoader loader) {
-        this.batch = batch;
+    public GameScreen(MariskaGame game) {
+        this.game = game;
+        this.batch = game.getBatcher();
 
         engine = new PooledEngine();
-        world = new World(engine,loader);
+
+        world = new World(engine,game.getLoader());
 
         world.create();
 

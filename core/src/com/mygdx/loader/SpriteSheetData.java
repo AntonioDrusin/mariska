@@ -23,7 +23,7 @@ public class SpriteSheetData {
         HashMap<String, SpriteInfo> sprites = new HashMap<>();
 
         for( JsonValue value : json.iterator()){
-            String name = value.name().split("\\s+")[0];
+            String name = value.name().split("(\\.|\\s+)")[0];
             SpriteInfo sprite;
             if ( sprites.containsKey(name) ) {
                 sprite = sprites.get(name);

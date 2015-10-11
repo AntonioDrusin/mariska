@@ -9,12 +9,15 @@ project.ext.spriteDir = new File("../core/sprites")
 
 task copyResources(type: Copy) {
     from '../android/assets'
-    into './build/assets'
-    eachFile {println it.getSourceName()}
+    into './build/assets/'
     include '**/*.*'
+    eachFile {println it.getSourceName()}
 }
 
 task buildSprites(type:Exec){
+    dependsOn{
+        copyResources
+    }
     workingDir project.assetsDir
     executable 'aseprite'
     def sheetFile =new File("./build/assets/spritesheet.png")
@@ -25,11 +28,7 @@ task buildSprites(type:Exec){
 
 task makeResources() {
     dependsOn{
-        copyResources
         buildSprites
-    }
-    doLast {
-        println("Copying android assets")
     }
 }
 

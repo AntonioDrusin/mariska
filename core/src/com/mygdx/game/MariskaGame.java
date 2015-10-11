@@ -11,13 +11,16 @@ public class MariskaGame extends Game {
 	private SpriteBatch batcher;
 	private SpriteSheetLoader loader;
 
+	public SpriteBatch getBatcher() { return batcher;}
+	public SpriteSheetLoader getLoader() {return loader;}
+
 
 	@Override
 	public void create () {
 		batcher = new SpriteBatch();
 		loader = new SpriteSheetLoader("spritesheet.json","spritesheet.png");
 		loader.load();
-		setScreen(new MainMenuScreen(batcher,loader));
+		setScreen(new MainMenuScreen(this));
 	}
 
 
