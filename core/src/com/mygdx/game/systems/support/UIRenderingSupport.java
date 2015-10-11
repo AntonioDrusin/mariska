@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
+// You could to engine.getSystem(blah.class) to get the UI renderer instead of what I am doing now.
+
 public class UIRenderingSupport {
     static final float FRUSTUM_WIDTH = 640f;
     static final float FRUSTUM_HEIGHT = 480f;
