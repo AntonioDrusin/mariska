@@ -5,9 +5,6 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.mygdx.game.components.*;
 import com.mygdx.loader.AssetLoader;
 
-/**
- * Created by antonio on 10/10/15.
- */
 public class World {
     private PooledEngine engine;
     private AssetLoader assets;
@@ -18,10 +15,10 @@ public class World {
     }
 
     public void create() {
-        Entity robot = createRobot();
+        createRobot();
     }
 
-    private Entity createRobot() {
+    private void  createRobot() {
         Entity entity = engine.createEntity();
 
         AnimationComponent animation = engine.createComponent(AnimationComponent.class);
@@ -42,7 +39,6 @@ public class World {
         entity.add(state);
 
         engine.addEntity(entity);
-        return entity;
     }
 }
 
