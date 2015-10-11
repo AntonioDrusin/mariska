@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.components.ControllerComponent;
-import com.mygdx.game.systems.support.IUIStage;
+import com.mygdx.game.systems.support.UIRenderingSupport;
 import com.mygdx.loader.AssetLoader;
 
 
@@ -30,7 +30,7 @@ public class TouchpadSystem extends IteratingSystem {
     private boolean left;
     private boolean right;
 
-    public TouchpadSystem(AssetLoader loader, IUIStage stage) {
+    public TouchpadSystem(AssetLoader loader, UIRenderingSupport stage) {
         super(Family.all(ControllerComponent.class).get());
         this.loader = loader;
         this.stage = stage.getStage();
@@ -59,6 +59,7 @@ public class TouchpadSystem extends IteratingSystem {
         touchpad = new Touchpad(10, touchpadStyle);
         //setBounds(x,y,width,height)
         touchpad.setBounds(15, 15, 180, 180);
+        touchpad.setColor(1f,1f,1f,.5f);
 
         stage.addActor(touchpad);
     }

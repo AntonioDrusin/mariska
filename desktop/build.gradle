@@ -21,9 +21,23 @@ task copyAudio(type: Copy) {
     eachFile {println it.getSourceName()}
 }
 
+task copyLevels(type: Copy) {
+    from '../core/levels'
+    into './build/assets/levels'
+    include '**/*.tmx'
+    eachFile {println it.getSourceName()}
+}
+
+task copyTiles(type: Copy) {
+    from '../core/tiles'
+    into './build/assets/tiles'
+    include '**/*.png'
+    eachFile {println it.getSourceName()}
+}
+
 task buildSprites(type:Exec){
     dependsOn{
-        [copyResources, copyAudio]
+        [copyResources, copyAudio, copyLevels, copyTiles]
     }
     workingDir project.assetsDir
     executable 'aseprite'

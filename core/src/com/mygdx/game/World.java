@@ -2,12 +2,15 @@ package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.components.*;
 import com.mygdx.loader.AssetLoader;
 
 public class World {
     private PooledEngine engine;
     private AssetLoader assets;
+    private TiledMap map;
 
     public World( PooledEngine engine, AssetLoader assets) {
         this.engine = engine;
@@ -15,7 +18,18 @@ public class World {
     }
 
     public void create() {
+
         createRobot();
+        map = createMap();
+    }
+
+    private TiledMap createMap() {
+        map =  new TmxMapLoader().load("levels/Level1.tmx");
+        return map;
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 
     private void  createRobot() {

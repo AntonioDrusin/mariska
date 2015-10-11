@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.systems.*;
+import com.mygdx.game.systems.support.UIRenderingSupport;
 import com.mygdx.loader.AssetLoader;
 
 
@@ -22,12 +23,16 @@ public class GameScreen extends ScreenAdapter {
         world = new World(engine,game.getLoader());
         world.create();
 
-        UIRenderingSystem renderingSystem = new UIRenderingSystem(batch);
-        engine.addSystem(renderingSystem);
-        engine.addSystem(new TouchpadSystem(loader, renderingSystem));
-        engine.addSystem(new AnimationSystem());
-        engine.addSystem(new RenderingSystem(batch));
+        UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
+
+        engine.addSystem(new TouchpadSystem(loader, uiRenderingSupport));
+        RenderingSystem gameRenderingSystem = new RenderingSystem(batch, uiRenderingSupport);
+
+        gameRenderingSystem.setMap(world.getMap());
+        engine.addSystem(gameRenderingSystem);
         engine.addSystem(new ControllerSystem());
+        engine.addSystem(new AnimationSystem());
+
     }
 
     private void update(float delta) {
