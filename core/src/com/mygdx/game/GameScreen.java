@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.systems.AnimationSystem;
 import com.mygdx.game.systems.RenderingSystem;
-import com.mygdx.loader.SpriteSheetLoader;
 
 public class GameScreen extends ScreenAdapter {
     SpriteBatch batch;

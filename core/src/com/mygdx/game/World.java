@@ -3,16 +3,16 @@ package com.mygdx.game;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.mygdx.game.components.*;
-import com.mygdx.loader.SpriteSheetLoader;
+import com.mygdx.loader.AssetLoader;
 
 /**
  * Created by antonio on 10/10/15.
  */
 public class World {
     private PooledEngine engine;
-    private SpriteSheetLoader assets;
+    private AssetLoader assets;
 
-    public World( PooledEngine engine, SpriteSheetLoader assets) {
+    public World( PooledEngine engine, AssetLoader assets) {
         this.engine = engine;
         this.assets = assets;
     }

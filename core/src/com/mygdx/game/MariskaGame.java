@@ -4,21 +4,21 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.loader.SpriteSheetLoader;
+import com.mygdx.loader.AssetLoader;
 
 public class MariskaGame extends Game {
 
 	private SpriteBatch batcher;
-	private SpriteSheetLoader loader;
+	private AssetLoader loader;
 
 	public SpriteBatch getBatcher() { return batcher;}
-	public SpriteSheetLoader getLoader() {return loader;}
+	public AssetLoader getLoader() {return loader;}
 
 
 	@Override
 	public void create () {
 		batcher = new SpriteBatch();
-		loader = new SpriteSheetLoader("spritesheet.json","spritesheet.png");
+		loader = new AssetLoader("spritesheet.json","spritesheet.png","sounds/");
 		loader.load();
 		setScreen(new MainMenuScreen(this));
 	}

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.loader.SpriteSheetLoader;
+import com.mygdx.loader.AssetLoader;
 
 public class MainMenuScreen extends ScreenAdapter {
 
@@ -38,11 +39,13 @@ public class MainMenuScreen extends ScreenAdapter {
     Vector3 touchPoint;
     private MariskaGame game;
 
+    Sound click;
+
 
     public MainMenuScreen(MariskaGame game) {
         this.game = game;
         this.batch = game.getBatcher();
-        SpriteSheetLoader loader = game.getLoader();
+        AssetLoader loader = game.getLoader();
 
         shapeRenderer = new ShapeRenderer();
 
@@ -51,6 +54,7 @@ public class MainMenuScreen extends ScreenAdapter {
         robot=loader.getAnimation("Robot");
         onion=loader.getAnimation("Onion");
         startButtonAnimation=loader.getAnimation("Button");
+        click=loader.getSound("click");
 
         guiCam = new OrthographicCamera(640, 480);
         viewport = new FitViewport(640,480, guiCam);
@@ -80,6 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
             guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
             if ( startButton.contains(touchPoint.x, touchPoint.y)) {
                 game.setScreen(new GameScreen(this.game));
+                click.play();
             }
         }
 

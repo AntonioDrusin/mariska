@@ -2,6 +2,7 @@ package com.mygdx.loader;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,22 +11,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class SpriteSheetLoader {
+public class AssetLoader {
     private SpriteSheetData spriteData;
     private String pictureFileName;
+    private String audioFolder;
     private HashMap<String, Animation> animations;
+    private HashMap<String, Sound> sounds;
 
-    public SpriteSheetLoader(String jsonFileName, String pictureFileName) {
+    public AssetLoader(String jsonFileName, String pictureFileName, String audioFolder) {
         this.pictureFileName = pictureFileName;
+        this.audioFolder = audioFolder;
         spriteData = new SpriteSheetData(jsonFileName);
         animations = new HashMap<>();
+        sounds = new HashMap<>();
     }
 
     public Animation getAnimation(String name) {
         return animations.get(name);
     }
+    public Sound getSound(String name) {return sounds.get(name);}
 
     public void load() {
+        loadAnimations();
+        loadSounds();
+    }
+
+    private void loadSounds() {
+        sounds.put("click", Gdx.audio.newSound(Gdx.files.internal(audioFolder + "click.mp3")));
+    }
+
+    private void loadAnimations() {
         Collection<SpriteInfo> sprites = spriteData.Load();
         Texture sheet = new Texture(Gdx.files.internal(pictureFileName));
 
@@ -46,6 +61,5 @@ public class SpriteSheetLoader {
             Animation animation = new Animation(frameTime,  regionArray );
             animations.put(sprite.name, animation);
         }
-
     }
 }

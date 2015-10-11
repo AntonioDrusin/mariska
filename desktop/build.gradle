@@ -8,15 +8,22 @@ project.ext.assetsDir = new File("./build/assets");
 project.ext.spriteDir = new File("../core/sprites")
 
 task copyResources(type: Copy) {
-    from '../android/assets'
+    from '../core/assets'
     into './build/assets/'
+    include '**/*.*'
+    eachFile {println it.getSourceName()}
+}
+
+task copyAudio(type: Copy) {
+    from '../core/sounds'
+    into './build/assets/sounds'
     include '**/*.*'
     eachFile {println it.getSourceName()}
 }
 
 task buildSprites(type:Exec){
     dependsOn{
-        copyResources
+        [copyResources, copyAudio]
     }
     workingDir project.assetsDir
     executable 'aseprite'
