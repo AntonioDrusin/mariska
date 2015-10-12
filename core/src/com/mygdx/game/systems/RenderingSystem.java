@@ -6,15 +6,19 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.components.TextureComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.systems.support.UIRenderingSupport;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class RenderingSystem extends IteratingSystem {
@@ -23,9 +27,11 @@ public class RenderingSystem extends IteratingSystem {
     static final float FRUSTUM_HEIGHT = 480;
 
     private final Array<Entity> renderQueue;
+    private final List<Rectangle> debugList = new ArrayList<>();
     private final Comparator<Entity> comparator;
     private final ComponentMapper<TextureComponent> textureMapper;
     private final ComponentMapper<TransformComponent> transformMapper;
+    private final ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private UIRenderingSupport uiRenderer;
     private TiledMap map;
@@ -52,13 +58,18 @@ public class RenderingSystem extends IteratingSystem {
                         transformMapper.get(entityA).pos.z);
             }
         };
+
+        shapeRenderer = new ShapeRenderer();
     }
 
     public void setMap(TiledMap map) {
         this.map = map;
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
         mapRenderer.setView(camera);
+    }
 
+    public void addDebugRectangle( Rectangle debug) {
+        debugList.add(new Rectangle(debug));
     }
 
     public void resize(int width, int height) {
@@ -78,9 +89,21 @@ public class RenderingSystem extends IteratingSystem {
         mapRenderer.render();
         renderSprites();
 
-
         uiRenderer.update(deltaTime);
+
+
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+        shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1);
+        for ( Rectangle r : debugList ){
+            shapeRenderer.rect(r.x, r.y, r.width, r.height);
+        }
+        shapeRenderer.end();
+        debugList.clear();
+
         renderQueue.clear();
+        
     }
 
     private void renderSprites() {

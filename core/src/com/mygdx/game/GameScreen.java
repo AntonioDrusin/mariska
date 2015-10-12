@@ -24,11 +24,10 @@ public class GameScreen extends ScreenAdapter {
         world = new World(engine,game.getLoader());
 
         engine.addSystem(new ControllerSystem());
-        engine.addSystem(new CollisionSystem());
-        engine.addSystem(new AnimationSystem());
         engine.addSystem(new GravitySystem());
-        engine.addSystem(new BoundsSystem());
-        engine.addSystem(new MovementSystem()); // after collision, so if collision sets velocity to 0 we respect that.
+        engine.addSystem(new AnimationSystem());
+        MovementSystem movementSystem = new MovementSystem();
+        engine.addSystem(movementSystem);
         engine.addSystem(new CameraSystem());
 
         UIRenderingSupport uiRenderingSupport = new UIRenderingSupport(batch);
@@ -38,6 +37,8 @@ public class GameScreen extends ScreenAdapter {
 
         world.create();
         gameRenderingSystem.setMap(world.getMap());
+        movementSystem.setMap(world.getMap());
+
 
 
 
@@ -49,7 +50,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render (float delta) {
-        update(delta);
+
+        update(Math.min(delta,0.033f));
+
     }
 
     @Override

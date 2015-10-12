@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -25,7 +24,6 @@ public class World {
         map = createMap();
 
         Entity robot = createRobot();
-        createBackgroundObjects();
         createCamera(robot);
     }
 
@@ -34,26 +32,6 @@ public class World {
         return map;
     }
 
-    private void createBackgroundObjects() {
-        for (MapObject o : map.getLayers().get("Collision").getObjects()) {
-            MapProperties props = o.getProperties();
-            float x = props.get("x",float.class);
-            float y = props.get("y",float.class);
-            float width = props.get("width",float.class);
-            float height = props.get("height",float.class);
-
-            Entity block = engine.createEntity();
-            BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
-            BackgroundComponent background = engine.createComponent(BackgroundComponent.class);
-            bounds.bounds.set(x,y,width,height);
-
-            block.add(bounds);
-            block.add(background);
-
-            engine.addEntity(block);
-
-        }
-    }
 
     public TiledMap getMap() {
         return map;
