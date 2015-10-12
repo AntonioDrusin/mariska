@@ -6,9 +6,10 @@ project.ext.assetsDir = new File("../android/assets");
 project.ext.spriteDir = new File("../core/sprites")
 
 task copyResources(type: Copy) {
-    from '../core/assets'
-    into '../android/assets'
-    include '**/*.*'
+    from '../core/assets/'
+    into '../android/assets/'
+    include '*.fnt'
+    include '*.png'
     eachFile {println it.getSourceName()}
 }
 
@@ -34,23 +35,26 @@ task copyTiles(type: Copy) {
 }
 
 task buildSprites(type:Exec){
-    workingDir project.assetsDir
+    dependsOn{
+        [copyResources, copyAudio, copyLevels, copyTiles]
+    }
+    workingDir "."
     executable 'aseprite'
     def sheetFile =new File("../android/assets/spritesheet.png")
     def dataFile =new File("../android/assets/spritesheet.json")
-    def argumentList = [ '-b','--sheet-pack', '--sheet', file(sheetFile), '--data', file(dataFile) ]
-    args argumentList + files {project.spriteDir.listFiles()}
+    def argumentList = [ '-b','--sheet-pack', '--sheet', sheetFile, '--data', dataFile ]
+    args argumentList + project.spriteDir.listFiles().collect{relativePath(it)}
 }
 
 task makeResources() {
     dependsOn{
-        [copyResources, copyAudio, copyLevels, copyTiles, buildSprites]
+        [buildSprites]
     }
 }
 
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-processResources.dependsOn([makeResources])
+
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 
@@ -58,3 +62,4 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 eclipse.project {
     name = appName + "-core"
 }
+

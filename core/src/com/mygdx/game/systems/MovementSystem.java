@@ -95,7 +95,7 @@ public class MovementSystem extends IteratingSystem {
 
     public boolean isCellBlocked(int x, int y) {
         cellRectangle.set(mapCellWidth * x, mapCellHeight * y, 32, 32);
-        renderer.addDebugRectangle(cellRectangle);
+
 
         return isBlockingTile(x, y) && cellRectangle.overlaps(boundsRectangle);
     }

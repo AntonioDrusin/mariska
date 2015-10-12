@@ -347,7 +347,7 @@
  </tileset>
  <layer name="Background" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztz7EJADAIRFEncBT3Hy9NKiGtCHnFg891VxFRAAAAAAAAwIi8Xp1t3+qXH70BANjtAACnvgg=
+   eJztz7EJAEAIA0AncP9xv7ESbB/BOwiEdIkAAAAAAAAAfsnK1LPtW1350TsAALs9PAEBbQ==
   </data>
  </layer>
  <layer name="Main" width="50" height="50">
