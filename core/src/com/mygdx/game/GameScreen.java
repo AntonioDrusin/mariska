@@ -38,10 +38,6 @@ public class GameScreen extends ScreenAdapter {
         world.create();
         gameRenderingSystem.setMap(world.getMap());
         movementSystem.setMap(world.getMap());
-
-
-
-
     }
 
     private void update(float delta) {

@@ -1,5 +1,6 @@
 package com.mygdx.loader;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -17,7 +18,7 @@ public class SpriteSheetData {
     }
 
     public Collection<SpriteInfo> Load() {
-        json = new JsonReader().parse(new FileHandle(jsonFileName));
+        json = new JsonReader().parse(Gdx.files.internal(jsonFileName));
         json = json.get("frames");
 
         HashMap<String, SpriteInfo> sprites = new HashMap<>();

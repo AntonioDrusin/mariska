@@ -4,60 +4,9 @@ sourceCompatibility = 7
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.mygdx.game.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("./build/assets");
-project.ext.spriteDir = new File("../core/sprites")
-
-task copyResources(type: Copy) {
-    from '../core/assets'
-    into './build/assets/'
-    include '**/*.*'
-    eachFile {println it.getSourceName()}
-}
-
-task copyAudio(type: Copy) {
-    from '../core/sounds'
-    into './build/assets/sounds'
-    include '**/*.*'
-    eachFile {println it.getSourceName()}
-}
-
-task copyLevels(type: Copy) {
-    from '../core/levels'
-    into './build/assets/levels'
-    include '**/*.tmx'
-    eachFile {println it.getSourceName()}
-}
-
-task copyTiles(type: Copy) {
-    from '../core/tiles'
-    into './build/assets/tiles'
-    include '**/*.png'
-    eachFile {println it.getSourceName()}
-}
-
-task buildSprites(type:Exec){
-    dependsOn{
-        [copyResources, copyAudio, copyLevels, copyTiles]
-    }
-    workingDir project.assetsDir
-    executable 'aseprite'
-    def sheetFile =new File("./build/assets/spritesheet.png")
-    def dataFile =new File("./build/assets/spritesheet.json")
-    def argumentList = [ '-b','--sheet-pack', '--sheet', file(sheetFile), '--data', file(dataFile) ]
-    args argumentList + files {project.spriteDir.listFiles()}
-}
-
-task makeResources() {
-    dependsOn{
-        buildSprites
-    }
-}
+project.ext.assetsDir = new File("../android/assets");
 
 task run(dependsOn: classes, type: JavaExec) {
-    dependsOn {
-        makeResources
-    }
-
     main = project.mainClassName
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath
@@ -72,10 +21,6 @@ task dist(type: Jar) {
     from {configurations.compile.collect {zipTree(it)}}
     from files(project.assetsDir);
 
-    dependsOn {
-        makeResources
-    }
- 
     manifest {
         attributes 'Main-Class': project.mainClassName
     }

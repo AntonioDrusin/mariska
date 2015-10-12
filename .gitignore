@@ -17,6 +17,9 @@ gwt-unitCache/
 www-test/
 .gwt-tmp/
 
+##android assets are now built/copied from core
+android/assets/
+
 ## Android Studio and Intellij and Android in general
 android/libs/armeabi/
 android/libs/armeabi-v7a/

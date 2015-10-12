@@ -1,7 +1,56 @@
 apply plugin: "java"
-
 sourceCompatibility = 7
+
+
+project.ext.assetsDir = new File("../android/assets");
+project.ext.spriteDir = new File("../core/sprites")
+
+task copyResources(type: Copy) {
+    from '../core/assets'
+    into '../android/assets'
+    include '**/*.*'
+    eachFile {println it.getSourceName()}
+}
+
+task copyAudio(type: Copy) {
+    from '../core/sounds'
+    into '../android/assets/sounds'
+    include '**/*.*'
+    eachFile {println it.getSourceName()}
+}
+
+task copyLevels(type: Copy) {
+    from '../core/levels'
+    into '../android/assets/levels'
+    include '**/*.tmx'
+    eachFile {println it.getSourceName()}
+}
+
+task copyTiles(type: Copy) {
+    from '../core/tiles'
+    into '../android/assets/tiles'
+    include '**/*.png'
+    eachFile {println it.getSourceName()}
+}
+
+task buildSprites(type:Exec){
+    workingDir project.assetsDir
+    executable 'aseprite'
+    def sheetFile =new File("../android/assets/spritesheet.png")
+    def dataFile =new File("../android/assets/spritesheet.json")
+    def argumentList = [ '-b','--sheet-pack', '--sheet', file(sheetFile), '--data', file(dataFile) ]
+    args argumentList + files {project.spriteDir.listFiles()}
+}
+
+task makeResources() {
+    dependsOn{
+        [copyResources, copyAudio, copyLevels, copyTiles, buildSprites]
+    }
+}
+
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+processResources.dependsOn([makeResources])
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 
