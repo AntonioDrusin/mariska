@@ -37,6 +37,8 @@ public class RenderingSystem extends IteratingSystem {
     private TiledMap map;
     private OrthographicCamera camera;
     private MapRenderer mapRenderer;
+    private int foregroundLayersIndex[] = new int[1];
+    private int backgroundLayersIndex[] = new int[2];
 
     public RenderingSystem(SpriteBatch batch, UIRenderingSupport uiRenderer) {
         super(Family.all(TransformComponent.class, TextureComponent.class).get());
@@ -66,6 +68,17 @@ public class RenderingSystem extends IteratingSystem {
         this.map = map;
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
         mapRenderer.setView(camera);
+
+        for ( int i = 0; i<map.getLayers().getCount(); i ++ ){
+            String layerName = map.getLayers().get(i).getName();
+            if (layerName.equals( "Foreground") )
+                foregroundLayersIndex[0] = i;
+            if (layerName.equals( "Main" ) )
+                backgroundLayersIndex[1] = i;
+            if (layerName.equals( "Background") )
+                backgroundLayersIndex[0] = i;
+
+        }
     }
 
     public void addDebugRectangle( Rectangle debug) {
@@ -86,9 +99,9 @@ public class RenderingSystem extends IteratingSystem {
 
         camera.update();
         mapRenderer.setView(camera);
-        mapRenderer.render();
+        mapRenderer.render(backgroundLayersIndex);
         renderSprites();
-
+        mapRenderer.render(foregroundLayersIndex);
         uiRenderer.update(deltaTime);
 
 
