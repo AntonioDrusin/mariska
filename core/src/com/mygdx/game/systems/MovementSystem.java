@@ -57,36 +57,36 @@ public class MovementSystem extends IteratingSystem {
             mov.velocity.x = -mov.maxVelocity.x;
         }
 
+        // pretend set
         tmp.set(mov.velocity).scl(deltaTime);
+        testCollisions(entity, mov.velocity, pos.pos.x + tmp.x, pos.pos.y + tmp.y);
 
-        if ( boundsMapper.has(entity) &&  willCollide(entity, mov.velocity, pos.pos.x + tmp.x, pos.pos.y + tmp.y)) {
-            return;
-        }
+        tmp.set(mov.velocity).scl(deltaTime);
         pos.pos.add(tmp.x, tmp.y, 0.0f);
     }
 
-    private boolean willCollide(Entity entity, Vector2 velocity, float newX, float newY) {
+    private boolean testCollisions(Entity entity, Vector2 velocity, float newX, float newY) {
         BoundsComponent bounds = boundsMapper.get(entity);
         MovementComponent mov = movementMapper.get(entity);
         TransformComponent pos = transformMapper.get(entity);
 
         boundsRectangle.set(bounds.bounds);
-        boundsRectangle.x = newX - bounds.bounds.width/2;
-        boundsRectangle.y = newY - bounds.bounds.height/2;
+        boundsRectangle.x = newX - bounds.bounds.width / 2;
+        boundsRectangle.y = newY - bounds.bounds.height / 2;
 
         renderer.addDebugRectangle(boundsRectangle);
 
         boolean blocked = false;
-        int x =(int)( newX / mapCellWidth);
-        int y =(int)( newY / mapCellHeight);
+        int x = (int) (newX / mapCellWidth);
+        int y = (int) (newY / mapCellHeight);
 
 
-        if ( velocity.y < 0) {
-            if (isCellBlocked(x,y-1) || isCellBlocked(x-1,y-1) || isCellBlocked(x+1,y-1) ) {
+        if (velocity.y < 0) {
+            if (isCellBlocked(x, y - 1) || isCellBlocked(x - 1, y - 1) || isCellBlocked(x + 1, y - 1)) {
                 mov.jumping = false;
-                mov.velocity.y =0;
+                mov.velocity.y = 0;
                 blocked = true;
-                pos.pos.y = mapCellHeight * y + bounds.bounds.height/2;
+                pos.pos.y = mapCellHeight * y + bounds.bounds.height / 2;
             }
         }
 
@@ -97,11 +97,11 @@ public class MovementSystem extends IteratingSystem {
         cellRectangle.set(mapCellWidth * x, mapCellHeight * y, 32, 32);
         renderer.addDebugRectangle(cellRectangle);
 
-        return isBlockingTile(x,y) && cellRectangle.overlaps(boundsRectangle);
+        return isBlockingTile(x, y) && cellRectangle.overlaps(boundsRectangle);
     }
 
-    public boolean isBlockingTile( int x, int y) {
-        if ( x<0 || y<0 || x>= widthCells || y>= heightCells ) return true; // blocks at the end of the level
+    public boolean isBlockingTile(int x, int y) {
+        if (x < 0 || y < 0 || x >= widthCells || y >= heightCells) return true; // blocks at the end of the level
         return blockers[x][y];
     }
 
@@ -117,12 +117,11 @@ public class MovementSystem extends IteratingSystem {
             for (int y = 0; y < heightCells; y++) {
 
                 TiledMapTileLayer.Cell cell = mapLayer.getCell(x, y);
-                if ( cell != null ) {
+                if (cell != null) {
                     TiledMapTile tile = cell.getTile();
                     MapProperties properties = tile.getProperties();
                     blockers[x][y] = properties != null && properties.containsKey("Block");
-                }
-                else
+                } else
                     blockers[x][y] = false;
             }
         }
