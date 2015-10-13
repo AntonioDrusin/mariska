@@ -9,6 +9,4 @@ public class MovementComponent implements Component {
     public boolean jumping;
     public boolean headhit;
     public final Vector2 maxVelocity = new Vector2(60, 60);
-
-
 }

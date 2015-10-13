@@ -14,4 +14,9 @@ public class StateComponent implements Component {
         state = newState;
         time = 0.0f;
     }
+
+    public void transition(int newState) {
+        if ( state != newState )
+            set(newState);
+    }
 }

@@ -14,4 +14,5 @@ public class AnimationComponent implements Component{
         animations.put(key,c);
     }
     public ComponentAnimation get ( int key ) {return animations.get(key);}
+    public boolean completed;
 }

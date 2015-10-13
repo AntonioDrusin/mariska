@@ -47,10 +47,12 @@ public class World {
         ControllerComponent controller = engine.createComponent(ControllerComponent.class);
         BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         MovementComponent movement = engine.createComponent(MovementComponent.class);
+        RobotComponent robot = engine.createComponent(RobotComponent.class);
 
         movement.maxVelocity.set(180.3f,200);
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"), false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"), true);
+        animation.add(RobotComponent.STATE_IDLE, assets.getAnimation("RobotIdle"), false);
 
         bounds.bounds.width = 20;
         bounds.bounds.height = 32;
@@ -66,6 +68,7 @@ public class World {
         entity.add(controller);
         entity.add(bounds);
         entity.add(movement);
+        entity.add(robot);
         entity.add(engine.createComponent(GravityComponent.class));
 
         engine.addEntity(entity);

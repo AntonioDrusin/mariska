@@ -36,10 +36,10 @@ public class AnimationSystem extends IteratingSystem{
         if ( animation != null ) {
             texture.region = animation.getKeyFrame(state.time,!compAnimation.completes);
             if ( compAnimation.completes ) {
-                if ( animation.getKeyFrameIndex(state.time) + 1 >=  animation.getKeyFrames().length )
-                {
-                    compAnimation.completed = true;
-                }
+                animationComponent.completed = animation.getKeyFrameIndex(state.time) + 1 >=  animation.getKeyFrames().length;
+            }
+            else {
+                animationComponent.completed = true;
             }
         }
 
