@@ -58,7 +58,7 @@ public class ControllerSystem extends IteratingSystem {
                 controller.jumpTime = 0;
             }
             else {
-                if(controller.jumpTime < 0.6f){
+                if(controller.jumpTime < 0.6f && !movement.headhit){
                     movement.velocity.y = 200;
                 }
 

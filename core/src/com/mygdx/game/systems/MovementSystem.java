@@ -65,38 +65,61 @@ public class MovementSystem extends IteratingSystem {
         pos.pos.add(tmp.x, tmp.y, 0.0f);
     }
 
-    private boolean testCollisions(Entity entity, Vector2 velocity, float newX, float newY) {
+    private void setBoundsRectanglePosition( Rectangle bounds,  float x, float y) {
+        boundsRectangle.x = x - bounds.width / 2;
+        boundsRectangle.y = y - bounds.height / 2;
+    }
+
+    private void testCollisions(Entity entity, Vector2 velocity, float newX, float newY) {
         BoundsComponent bounds = boundsMapper.get(entity);
         MovementComponent mov = movementMapper.get(entity);
         TransformComponent pos = transformMapper.get(entity);
 
         boundsRectangle.set(bounds.bounds);
-        boundsRectangle.x = newX - bounds.bounds.width / 2;
-        boundsRectangle.y = newY - bounds.bounds.height / 2;
 
-        renderer.addDebugRectangle(boundsRectangle);
-
-        boolean blocked = false;
         int x = (int) (newX / mapCellWidth);
         int y = (int) (newY / mapCellHeight);
 
-
         if (velocity.y < 0) {
+            setBoundsRectanglePosition(bounds.bounds, pos.pos.x, newY);
             if (isCellBlocked(x, y - 1) || isCellBlocked(x - 1, y - 1) || isCellBlocked(x + 1, y - 1)) {
                 mov.jumping = false;
+                mov.headhit= false;
                 mov.velocity.y = 0;
-                blocked = true;
-                pos.pos.y = mapCellHeight * y + bounds.bounds.height / 2;
+                float clipPosY =mapCellHeight * y + bounds.bounds.height / 2;
+                pos.pos.y = Math.min(pos.pos.y, clipPosY);
+                boundsRectangle.y = pos.pos.y - bounds.bounds.height / 2;
             }
         }
 
-        return blocked;
+        if (velocity.y > 0) {
+            setBoundsRectanglePosition(bounds.bounds, pos.pos.x, newY);
+            if (isCellBlocked(x, y + 1) || isCellBlocked(x - 1, y + 1) || isCellBlocked(x + 1, y + 1)) {
+                mov.velocity.y = 0;
+                mov.headhit= true;
+                boundsRectangle.y = mapCellHeight * y - bounds.bounds.height / 2;
+            }
+        }
+
+        if (velocity.x < 0) {
+            setBoundsRectanglePosition(bounds.bounds, newX, pos.pos.y);
+            if (isCellBlocked(x - 1, y) || isCellBlocked(x - 1, y - 1) || isCellBlocked(x - 1, y + 1)) {
+                mov.velocity.x = 0;
+                pos.pos.x = mapCellWidth * x + bounds.bounds.width / 2;
+            }
+        }
+
+        if (velocity.x > 0) {
+            setBoundsRectanglePosition(bounds.bounds, newX, pos.pos.y);
+            if (isCellBlocked(x + 1, y) || isCellBlocked(x + 1, y - 1) || isCellBlocked(x + 1, y + 1)) {
+                mov.velocity.x = 0;
+                pos.pos.x = mapCellWidth * (x+1) - bounds.bounds.width / 2;
+            }
+        }
     }
 
     public boolean isCellBlocked(int x, int y) {
         cellRectangle.set(mapCellWidth * x, mapCellHeight * y, 32, 32);
-
-
         return isBlockingTile(x, y) && cellRectangle.overlaps(boundsRectangle);
     }
 

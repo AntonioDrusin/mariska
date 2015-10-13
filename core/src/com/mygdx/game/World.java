@@ -52,7 +52,7 @@ public class World {
         animation.add(RobotComponent.STATE_WALKING, assets.getAnimation("Robot"), false);
         animation.add(RobotComponent.STATE_ENTERING, assets.getAnimation("RobotEnter"), true);
 
-        bounds.bounds.width = 32;
+        bounds.bounds.width = 20;
         bounds.bounds.height = 32;
 
         setLocation(transform);

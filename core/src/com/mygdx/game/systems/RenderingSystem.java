@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -69,6 +71,8 @@ public class RenderingSystem extends IteratingSystem {
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
         mapRenderer.setView(camera);
 
+
+
         for ( int i = 0; i<map.getLayers().getCount(); i ++ ){
             String layerName = map.getLayers().get(i).getName();
             if (layerName.equals( "Foreground") )
@@ -96,6 +100,10 @@ public class RenderingSystem extends IteratingSystem {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+
+        GL20 gl = Gdx.gl;
+        gl.glClearColor(1, 0.7f, 0, 1);
+        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
         mapRenderer.setView(camera);
